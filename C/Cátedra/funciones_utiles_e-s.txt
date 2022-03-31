@@ -1,0 +1,45 @@
+Para entrada y salida de caracteres
+
+getchar(): Lee un carácter del teclado. Espera hasta que se pulsa una tecla y entonces devuelve su valor.
+
+putchar(): Imprime un carácter en la pantalla en la posición actual del cursor.
+
+gets(): Lee una cadena de caracteres introducida por el teclado y la sitúa en una dirección apuntada por su argumento de tipo puntero a carácter.
+
+puts(): Escribe su argumento de tipo cadena en la pantalla seguida de un carácter de salto de línea.
+
+Para archivos
+
+serremove(): Borra el archivo especificado.
+
+fflush(): Vacía el contenido de una secuencia de salida.
+
+fread(): Lee tipos de datos que ocupan más de un byte. Permiten la lectura de bloques de cualquier tipo de datos.
+
+fwrite(): Escribe tipos de datos que ocupan más de un byte. Permiten la escritura de bloques de cualquier tipo de datos.
+
+fprintf(): Hace las funciones de printf() sobre un fichero.
+
+fscanf(): Hace las funciones de scanf() sobre un fichero.
+
+feof(): Detecta el final de un fichero.
+
+ferror(): Detecta un error en la lectura/escritura de un fichero.
+
+fclose() cierra una secuencia que fue abierta mediante una llamada a fopen().
+
+putc() escribe caracteres en un archivo que haya sido abierto previamente para operaciones de escritura, utilizando la función fopen().
+
+La función getc() escribe caracteres en un archivo que haya sido abierto, en modo lectura, mediante fopen(). Su prototipo es:
+
+La función fputs() escribe la cadena en la secuencia especificada. Su prototipo es: int fputs(const char *cad, FILE *pf);
+
+La función fgets() lee una cadena de la secuencia especificada hasta que se lee un carácter de salto de línea o hasta que se han leído longitud-1 caracteres. Su prototipo es: fgets() lee una cadena de la secuencia especificada hasta que se lee un carácter de salto de línea o hasta que se han leído longitud-1 caracteres. Su prototipo es:int fgets(char *cad, FILE *pf);
+
+Datos útiles
+Bases de comparación	                                    malloc ()	                                                calloc ()
+No de bloques	                        Asigna bloque único de memoria demandada.                           Asigna múltiples bloques de la memoria solicitada.
+Sintaxis	                                        void * malloc (size_t size);	                        void * calloc (size_t num, size_t size);
+Inicialización	                    malloc () no borra e inicializa la memoria asignada.	                La memoria asignada se inicializa a cero utilizando calloc ().
+Forma de asignación	               La función malloc () asigna memoria de tamaño 'tamaño' del montón.	    La función calloc () asigna memoria cuyo tamaño es igual al tamaño num *.
+Velocidad	                                                Rápido	                                        Comparativamente lento.

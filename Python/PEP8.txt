@@ -1,0 +1,52 @@
+Generalmente, es bueno apuntar a una longitud de línea de 79 caracteres en su 
+código Python.
+
+Los comentarios deben tener 72 caracteres de longitud de línea.
+
+Mientras usa el +operador, puede usar mejor un salto de línea adecuado, 
+lo que hace que su código sea más fácil de entender
+
+En los scripts de Python, las funciones y clases de nivel superior están 
+separadas por dos líneas en blanco.
+
+Ten en cuenta que si realizas muchas importaciones, debes asegurarte de 
+indicar cada importación en una sola línea.
+
+Además, debe tener en cuenta que existe un orden que debe respetar al importar
+bibliotecas. En general, puede seguir este orden:
+1. Importaciones de bibliotecas estándar.
+2. Importaciones de terceros relacionadas.
+3. Importaciones específicas de aplicaciones / bibliotecas locales.
+Deberías poner una línea en blanco entre cada grupo.
+
+
+
+Convenciones generales de nomenclatura
+La siguiente tabla muestra algunas pautas generales sobre cómo nombrar sus
+identificadores:
+Identificador                   Convención
+Módulo                          minúscula
+Clase                           CapWords
+Funciones                       minúscula
+Métodos                         minúscula
+Tipo de variables               CapWords
+Constantes                      MAYÚSCULAS
+Paquete                         minúscula
+
+
+No utilice 'l', 'O' o 'I' como nombre de variable única: estos caracteres se
+parecen a cero ( 0) y ( 1) en algunas fuentes.
+Generalmente, es bueno usar nombres cortos si es posible. En algunos casos,
+puede utilizar guiones bajos para mejorar la legibilidad.
+
+
+
+
+pep8 --first optparse.py
+También puede ver el código fuente donde se encuentra la incompatibilidad con el -
+-show-source argumento:
+$ pep8 --show-source --show-pep8 testsuite/E40.py
+
+O puede mostrar la frecuencia con la que se encontró cada error agregando --
+statistics:
+$ pep8 --statistics -qq Python-2.5/Lib

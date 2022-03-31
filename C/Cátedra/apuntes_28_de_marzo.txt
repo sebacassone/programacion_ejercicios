@@ -1,0 +1,1 @@
+- El tipo de dato depende de la precisión que requiera el problema.
