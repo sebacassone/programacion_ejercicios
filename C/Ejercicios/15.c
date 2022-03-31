@@ -11,6 +11,8 @@ int main(void){
     branco *L;
     L = (branco *)malloc(sizeof(branco)*10);
     printf("Introduce un peso: ");
+    // Se ocupa -> para asignar valores en peso siendo L de tipo
+    // puntero
     scanf("%f", &L -> peso);
     printf("El peso %.2f", L[0].peso);
 }
