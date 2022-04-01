@@ -10,7 +10,6 @@ typedef struct mochila
 int main(void){
     branco *L;
     L = (branco *)malloc(sizeof(branco)*10);
-    printf("Introduce un peso: ");
-    scanf("%f", &L -> peso);
+    L -> peso = 3.4;
     printf("El peso %.2f", L[0].peso);
 }
