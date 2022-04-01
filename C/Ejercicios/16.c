@@ -14,7 +14,7 @@ int main(void){
     // puntero
     // L[0] == L (memoria)
     // L[1] == L + 1
-    // -> solo se ocupa para punteros
+    // -> solo se ocupa para variables de tipo estructura punteros
     L[0].peso = 23.4;
     printf("El peso %.2f", L[0].peso);
 }
