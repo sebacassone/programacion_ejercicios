@@ -40,14 +40,15 @@ MAT *leer_archivo(void){
 MAT *crear_matriz(void){
     // Se declara variable
     MAT *nuevo;
-    // Se crea un nuevo espacio de memoria de forma dinámica.
+    // Se crea un nuevo espacio de memoria de forma dinámica para la estructura.
     nuevo = (MAT *)malloc(sizeof(MAT));
-    // Se asigna las dimensiones de la matriz a nuevo
-    (*nuevo).n = n;
-    (*nuevo).m = m;
-    // Se asgina dinamicamente espacio de memoria dentro de M
+    // Se asigna las dimensiones de la matriz a la estructura apuntada por nuevo
+    (*nuevo).n = n; // Fila
+    (*nuevo).m = m; // Columna
+    // Se asigna dinamicamente espacio de memoria dentro de M que son punteros que apuntarán a las filas de la matriz.
     (*nuevo).M = (int **)malloc(sizeof(int *) * n);
-    // Se recorre el espacio de memoria creado dentro de M.
+    // Se recorre el arreglo de punteros creados para crear así un espacio en memoria para cada fila siendo de
+    // largo de las columnas
     for(int i = 0; i < n; i ++)
         (*nuevo).M[i] = (int *)malloc(sizeof(int) * m);
     // Se retorna nuevo.
@@ -98,8 +99,8 @@ MAT *multiplicacion(MAT A, MAT B){
     // Se declara variable donde contendrá el resultado
     MAT *C;
     // Verifica las dimensiones de las matrices
-    if((A.n != B.m)){
-        printf("Las matrices son de distintas dimensiones");
+    if((A.m != B.n)){
+        printf("Las matrices no pueden ser multiplicadas");
         return NULL;
     }
     // Se crea espacio en memoria para la matriz C
@@ -110,10 +111,15 @@ MAT *multiplicacion(MAT A, MAT B){
         return NULL;
     }
     // Hace la suma de las matrices.
-    for(int i = 0; i < A.n; i ++){
-        for(int j = 0; j < (*C).m; j ++)
-            (*C).M[i][j] = A.M[i][j] + B.M[i][j];
+    for(int i = 0; i < A.n; i++){
+        for(int j = 0; j < B.m; j++){
+            (*C).M[i][j] = A.M[i][0] * B.M[0][j];
+            for(int k = 1; k < B.n; k++){
+                (*C).M[i][j] = A.M[i][k] * B.M[k][j] + (*C).M[i][j];
+            }
+        }
     }
+    return C;
 }
 
 
