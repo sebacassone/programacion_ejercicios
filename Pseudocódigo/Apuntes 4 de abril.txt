@@ -1,0 +1,31 @@
+Algoritmos de busqueda (Como entada se entrega los datos + el elemento a buscar)
+Buscar: Encontrar un elemento dentro de un conjunto de datos
+Tipo de busqueda:
+* Busqueda lineal: Recorrer todos los elementos de manera consecutiva (hasta el
+ultimo elemento en el peor de los casos (n))
+(Se puede saber si el elemento esta en esa posición o no)
+(Por cada iteración se descarga un solo dato)
+(No en termino de complejidad mejora el hecho de que este ordenado.
+Solo sirve para mayor y menor)
+
+boolean busquedalineal(A,X)
+    if esVacio(A)
+        return F
+    end if
+    n = Largo(A)
+    for i = 1 to n
+        if(A[i] == x)
+            return V 
+        end if
+    end for
+    return F
+
+* Busqueda binaria: Se asume un Ordenamiento de los datos usando la variable de
+busqueda.
+(Se define un pivote. Elemento del centro. Son elementos menores la del primer
+grupo, y el segundo son mayores que el elemento del centro).
+(Por cada recursión se descarta la mitad de los datos, es mas rapida).
+(Como es una busquedabinaria no recursiva)
+(No se puede buscar elementos si no estan ordenados)
+
+Algoritmos de Ordenamiento (Como entrada se entrega los datos + un criterio de Ordenamiento)

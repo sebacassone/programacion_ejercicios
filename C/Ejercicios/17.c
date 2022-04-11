@@ -7,6 +7,26 @@ typedef struct plano{
     int largo;
 } cartesiano_3d;
 
+cartesiano_3d* crear_punto(int numero){
+    // Se declara variable tipo estructura
+    cartesiano_3d *nuevo_punto;
+    // Se asigna espacio en memoria para la estructura
+    nuevo_punto = (cartesiano_3d *)malloc(sizeof(cartesiano_3d));
+    if(numero){
+        // Se le pide los datos al usuario
+        printf("Ingrese los valores para x");
+        scanf("%f", &nuevo_punto -> x);
+        printf("Ingrese los valores para y");
+        scanf("%f", &nuevo_punto -> y);
+        printf("Ingrese los valores para z");
+        scanf("%f", &nuevo_punto -> z);
+    }
+    // Se le asigna el largo del arreglo
+    nuevo_punto -> largo = 3;
+    // Retorna el punto
+    return nuevo_punto;    
+}
+
 int distancia(cartesiano_3d *punto){
     // Para calcular la distancia se sacará la norma del punto.
     float c_x = punto -> x;
@@ -54,29 +74,10 @@ cartesiano_3d* despalzar_punto(cartesiano_3d *punto){
     return punto;
 }
 
-cartesiano_3d* crear_punto(int numero){
-    // Se declara variable tipo estructura
-    cartesiano_3d *nuevo_punto;
-    // Se asigna espacio en memoria para la estructura
-    nuevo_punto = (cartesiano_3d *)malloc(sizeof(cartesiano_3d));
-    if(numero){
-        // Se le pide los datos al usuario
-        printf("Ingrese los valores para x");
-        scanf("%f", &nuevo_punto -> x);
-        printf("Ingrese los valores para y");
-        scanf("%f", &nuevo_punto -> y);
-        printf("Ingrese los valores para z");
-        scanf("%f", &nuevo_punto -> z);
-    }
-    // Se le asigna el largo del arreglo
-    nuevo_punto -> largo = 3;
-    // Retorna el punto
-    return nuevo_punto;    
-}
-
 int main(void){
-    cartesiano_3d *punto, *resultado;
-    int opcion, resultado;
+    cartesiano_3d *punto, *resultado_2;
+    int opcion;
+    float resultado_1;
     punto = crear_punto(1);
     printf("Que desea hacer: \n");
     printf("1- Obtener la distancia al origen\n");
@@ -88,19 +89,19 @@ int main(void){
     while(opcion != 5){
         switch(opcion){
         case 1:
-            resultado = distancia(punto);
-            printf("La distancia es %d", resultado);
+            resultado_1 = distancia(punto);
+            printf("La distancia es %d", resultado_1);
             break;
         case 2:
             imprimir_punto(punto);
             break;
         case 3:
-            resultado = punto_medio(punto);
-            imprimir_punto(resultado);
+            resultado_2 = punto_medio(punto);
+            imprimir_punto(resultado_2);
             break;
         case 4:
-            resultado = despalzar_punto(punto);
-            imprimir_punto(resultado);
+            resultado_2 = despalzar_punto(punto);
+            imprimir_punto(resultado_2);
             break;
         case 5:
             break;
