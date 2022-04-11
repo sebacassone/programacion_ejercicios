@@ -14,11 +14,11 @@ cartesiano_3d* crear_punto(int numero){
     nuevo_punto = (cartesiano_3d *)malloc(sizeof(cartesiano_3d));
     if(numero){
         // Se le pide los datos al usuario
-        printf("Ingrese los valores para x");
+        printf("Ingrese los valores para x: ");
         scanf("%f", &nuevo_punto -> x);
-        printf("Ingrese los valores para y");
+        printf("Ingrese los valores para y: ");
         scanf("%f", &nuevo_punto -> y);
-        printf("Ingrese los valores para z");
+        printf("Ingrese los valores para z: ");
         scanf("%f", &nuevo_punto -> z);
     }
     // Se le asigna el largo del arreglo
@@ -27,12 +27,12 @@ cartesiano_3d* crear_punto(int numero){
     return nuevo_punto;    
 }
 
-int distancia(cartesiano_3d *punto){
+double distancia(cartesiano_3d *punto){
     // Para calcular la distancia se sacará la norma del punto.
     float c_x = punto -> x;
     float c_y = punto -> y;
     float c_z = punto -> z;
-    float d = pow(c_x * c_x + c_y * c_y + c_z + c_z, 1/2);
+    double d = sqrt(c_x * c_x + c_y * c_y + c_z * c_z);
     return d;
 }
 
@@ -41,7 +41,7 @@ void imprimir_punto(cartesiano_3d *punto){
     float c_y = punto -> y;
     float c_z = punto -> z;
     // Se imprime por consola el punto
-    printf("(%f,%f;%f)", c_x, c_y, c_z);
+    printf("El punto es: (%f; %f; %f)\n", c_x, c_y, c_z);
 }
 
 cartesiano_3d* punto_medio(cartesiano_3d *punto){
@@ -77,20 +77,20 @@ cartesiano_3d* despalzar_punto(cartesiano_3d *punto){
 int main(void){
     cartesiano_3d *punto, *resultado_2;
     int opcion;
-    float resultado_1;
+    double resultado_1;
     punto = crear_punto(1);
-    printf("Que desea hacer: \n");
-    printf("1- Obtener la distancia al origen\n");
-    printf("2- Imprimir el punto\n");
-    printf("3- Obtener punto medio\n");
-    printf("4- Desplazar el punto\n");
-    printf("5- Salir\n");
-    scanf("%d", &opcion);
     while(opcion != 5){
+        printf("Que desea hacer: \n");
+        printf("1- Obtener la distancia al origen\n");
+        printf("2- Imprimir el punto\n");
+        printf("3- Obtener punto medio\n");
+        printf("4- Desplazar el punto\n");
+        printf("5- Salir\n");
+        scanf("%d", &opcion);
         switch(opcion){
         case 1:
             resultado_1 = distancia(punto);
-            printf("La distancia es %d", resultado_1);
+            printf("La distancia es: %lf\n", resultado_1);
             break;
         case 2:
             imprimir_punto(punto);
