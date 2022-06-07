@@ -1,0 +1,20 @@
+Grafos Resumen
+
+Dijkstra
+Soluciona el camino de menor costo de uno al todo el resto.
+Se toma un nodo, buscar el vertice con un menor costo (solo para grafos ponderados),
+al buscar el camino menor, se utiliza como pivote,
+se garantiza el menor costo en los demas caminos.
+
+Flujo Ford-Fulkerson
+
+
+Recorrido
+Amplitud
+Se obtienen todos los adyacentes, y para uno de sus adyacentes se obtienen también.
+Se utiliza cola, se saca de un solo lado y se agrega al final, de orden 1.
+
+Profundidad
+Desde un adyacente se obtiene otro adyacente, se devuelve y visita los demás que quedaron
+pendiente.
+Se utiliza una pila, se agrega sobre el tope de la pila, de orden 1.

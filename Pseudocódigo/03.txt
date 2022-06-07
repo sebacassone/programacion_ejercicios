@@ -1,0 +1,51 @@
+int contar(L1, L2)
+    cont = 0
+    if(L1 == NULL)
+        print "L1 es vacio"
+        return 0
+    if(L2 == NULL)
+        print "L2 es vacio"
+        return 0
+    aux = L1
+    while(L1 != NULL)
+        cont = 0
+        aux2 = L2
+        while(aux2 != NULL)
+            if(aux -> dato == aux2 -> dato)
+                contador ++
+            aux = aux2 -> sig
+        print "el dato" aux -> dato "está" cont "veces en L2"
+        aux = aux -> sig
+    return 1
+
+L* rm(L1){
+    if(L1 == NULL)
+        print "L1 está vacio"
+    aux = L
+    while(aux != NULL){
+        aux2 = aux -> sig
+        while(aux2 != NULL){
+            if(aux -> dato == aux2 -> dato){
+                aux3 = aux2 -> sig
+                if(aux2 -> sig != NULL)
+                    aux -> sig -> ant = aux2 -> ant
+                free(aux2)
+                aux2 = aux3
+            }else{
+                aux2 = aux2 -> sig
+            }
+        }
+    }
+}
+
+
+L* semi_union(L1, L2){
+    if(L1 == NULL)
+        print "L1 es vacio"
+        return 0
+    if(L2 == NULL)
+        print "L2 es vacio"
+        return 0
+    
+}
+    
