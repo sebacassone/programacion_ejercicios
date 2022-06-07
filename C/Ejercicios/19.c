@@ -1,25 +1,45 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-typedef struct enteros{
-    // Capacidad máxima
-    int capacidad;
-    // Tamaño del arreglo
-    int largo;
-    // Puntero al arreglo
-    int *conjunto;
-} conjunto;
+typedef struct cola{
+    nodo *inicio;
+    nodo *fin;
+} cola;
 
-int vacio(conjunto *A){
-    return;
+typedef struct nodo{
+    int info;
+    nodo *next;
+} nodo;
+
+cola *crearcola(){
+    cola *c; 
+    c = (cola *)malloc(sizeof(nodo) * 2);
+    c -> inicio = NULL;
+    c -> fin = NULL;
+    return c;
 }
 
-conjunto* union_conjuntos(conjunto *A, conjunto *B){
-    return;
+cola *encolar(cola *c, int dato){
+    cola *nuevo_nodo;
+    nuevo_nodo = crear_nodo(dato);
+    if(!vacio(c)){
+        c -> fin -> next = nuevo_nodo;
+    }
+    c -> fin = nuevo_nodo;
 }
 
-conjunto* interseccion_conjuntos(conjunto *A, conjunto *B){
-    return;
+cola *desencolar(cola *c){
+    if(!vacio(c)){
+        c -> inicio = c -> inicio -> next;
+    }
+}
+
+nodo *crear_nodo(int valor){
+    nodo *nuevo;
+    nuevo = (nodo *)malloc(sizeof(nodo) + sizeof(int));
+    nuevo -> info = valor;
+    nuevo -> next = NULL;
+    return nuevo;
 }
 
 int main(void){
