@@ -1,5 +1,9 @@
 Para entrada y salida de caracteres
 
+atoi(): Atoi C es una función que se usa para convertir una cadena de caracteres en un símbolo numérico. Es decir, en una variable que guarde el número que ella contiene. Su significado es ASCII a entero. Debe incluirse en el archivo de cabecera de la biblioteca estándar C stdlib.h.
+
+atof(): Convierte una cadena a su valor numérico (coma flotante)
+
 getchar(): Lee un carácter del teclado. Espera hasta que se pulsa una tecla y entonces devuelve su valor.
 
 putchar(): Imprime un carácter en la pantalla en la posición actual del cursor.

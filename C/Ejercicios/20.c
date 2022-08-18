@@ -36,7 +36,7 @@ int positivos(stack *c){
     return 1;
 }
 
-stack pop(stack *c){
+stack* pop(stack *c){
     stack *aux;
     aux = c;
 

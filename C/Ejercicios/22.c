@@ -11,6 +11,10 @@ typedef struct lista{
 	nodo *fin;
 } lista;
 
+typedef struct pila{
+	nodo *top;
+} pila;
+
 typedef struct cola{
 	nodo *inicio;
 	nodo *fin;
@@ -78,7 +82,58 @@ lista *crear_lista(void){
 	return nueva_lista;
 }
 
+// Para ordenar
+void quicksort(lista *L){
+	int i, j, pivote, aux;
+	nodo *izq, *der, *piv;
+	izq = L -> inicio;
+	der = L -> fin;
+	piv = L -> inicio;
+	pivote = piv -> info;
+	while(izq != der){
+		while(izq -> info <= pivote && izq != der)
+			izq = izq -> sig;
+		while(der -> info > pivote && der != izq)
+			der = der -> sig;
+		if(izq != der){
+			aux = izq -> info;
+			izq -> info = der -> info;
+			der -> info = aux;
+		}
+	}
+	piv -> info = der -> info;
+	der -> info = pivote;
+	if(izq != L -> inicio)
+		quicksort(L);
+	if(der != L -> fin)
+		quicksort(L);
+}
+
 // Funciones de Estructuras de Datos lineales
+// Para pila
+void push(pila *P, int valor){
+	nodo *nuevo_nodo, *aux;
+	nuevo_nodo = crear_nodo(valor);
+	if(P -> top != NULL){
+		aux = P -> top;
+		P -> top = nuevo_nodo;
+		P -> top -> sig = aux;
+	}else{
+		P -> top = nuevo_nodo;
+	}
+}
+
+nodo *pop(pila *P){
+	nodo *aux;
+	if(P -> top != NULL){
+		aux = P -> top;
+		aux -> sig = NULL;
+		P -> top = P -> top -> sig;
+		return aux;
+	}
+}
+
+// Para Cola
 void encolar(cola *C, int valor){
 	nodo *nuevo_nodo, *aux;
 	// Se crea el nodo para agregar a la cola
@@ -111,6 +166,7 @@ nodo *desencolar(cola *C){
 	}
 }
 
+// Para lista
 void agregar_final_lista(lista *L, int valor){
 	nodo *nuevo_nodo, *aux;
 	// Se crea el nodo para agregar a la lista
@@ -125,13 +181,108 @@ void agregar_final_lista(lista *L, int valor){
 	}
 }
 
-void *eliminar_repetidos_lista(lista *L){
+void agregar_inicio_lista(lista *L, int valor){
+	nodo *nuevo_nodo, *aux;
+	// Se crea el nodo para agregar a la lista
+	nuevo_nodo = crear_nodo(valor);
+	if(L -> inicio != NULL){
+		aux = L -> inicio;
+		L -> inicio = nuevo_nodo;
+		L -> inicio -> sig = aux;
+	}else{
+		L -> inicio = nuevo_nodo;
+		L -> fin = nuevo_nodo;
+	}
+}
+
+nodo *eliminar_inicio_lista(lista *L){
+	nodo *aux;
+	// Verifica que la cola no esté vacía
+	if(L -> inicio != NULL){
+		// Se utiliza un auxiliar para retornar el nodo
+		aux = L -> inicio;
+		aux -> sig = NULL;
+		// Se verifica que el nodo de inicio y fin no sean iguales y por lo
+		// tanto, al desencolar el nodo se quede sin elementos
+		if(L -> inicio -> sig != NULL)
+			L -> inicio = L -> inicio -> sig;
+		else
+			L -> inicio = NULL;
+		return aux;
+	}
+}
+
+nodo *penultimo_lista(lista *L){
 	lista *aux;
-	aux = crear_lista();
 	aux = L;
-	//while(aux -> inicio != NULL){
-		
-	//}
+	while(aux -> inicio != NULL){
+		if(aux -> inicio -> sig == L -> fin){
+			return aux -> inicio -> sig;
+		}
+		eliminar_inicio_lista(aux);
+	}
+}
+
+nodo *eliminar_final_lista(lista *L){
+	nodo *aux, *penultimo;
+	// Verifica que la cola no esté vacía
+	if(L -> fin != NULL){
+		// Se utiliza un auxiliar para retornar el nodo
+		aux = L -> fin;
+		aux -> sig = NULL;
+		// Se verifica que el nodo de inicio y fin no sean iguales y por lo
+		// tanto, al desencolar el nodo se quede sin elementos
+		penultimo = penultimo_lista(L);
+		L -> fin = penultimo;
+		return aux;
+	}
+}
+
+nodo *anterior(lista *L, nodo *N){
+	nodo *aux;
+	aux = L -> inicio;
+	while(aux -> sig != N)
+		aux = aux -> sig;
+	return aux;
+}
+
+nodo *eliminar_otro(lista *L, nodo *N){
+	nodo *aux;
+	aux = anterior(L, N);
+	aux -> sig = N -> sig;
+	free(N);
+}
+
+nodo *eliminar_nodo_lista(lista *L, nodo *N){
+	if(L -> inicio != NULL && L -> fin != NULL){
+		// Se obtiene el nodo donde se encuentre el nodo
+		if(N == L -> inicio)
+			eliminar_inicio_lista(L);
+		else if(N == L -> fin)
+			eliminar_final_lista(L);
+		else
+			eliminar_otro(L, N);
+	}else
+		printf("\nLista vacía");
+}
+
+void *eliminar_repetidos_lista(lista *L){
+	/*
+	Se considera una lista previamente ordenada de menor a mayor
+	en el que se guardará en memoria los nodos que se vayan eliminando
+	y si el nodo agregado recientemente coincide con el ultimo nodo
+	ingresado se elimina de la lista.
+	*/
+	lista *aux, *aux2;
+	aux2 = crear_lista();
+	aux = L;
+	while(aux -> inicio != NULL){
+		agregar_final_lista(aux2, aux -> inicio -> info);
+		if(aux2 -> fin -> info == aux -> inicio -> sig -> info){
+			eliminar_nodo_lista(L, aux -> inicio -> sig);
+		}
+		eliminar_inicio_lista(aux);
+	}
 }
 
 // Funciones para Grafos
@@ -218,9 +369,63 @@ int mostrar_adyacente(grafo *grafo_general, int vertice){
 }
 
 lista *recorrido_amplitud(grafo *grafo_general){
+	int i;
+	nodo *vertice;
 	cola *C;
 	lista *recorrido, *visitados;
-	encolar(C, grafo_general -> matriz[0][0]);
+	// Se crea espacio en memoria para las listas
+	recorrido = crear_lista();
+	visitados = crear_lista();
+	// Se encola el primer vertice
+	encolar(C, grafo_general -> vertices -> inicio -> info);
+	// Mientras aún queden elementos en la cola
+	while(C -> inicio != NULL){
+		// Se obtiene el vertice
+		vertice = desencolar(C);
+		// Si el vertice no ha sido visitado se agregan a la lista de recorrido y visitados
+		if(!pertenece_lista(visitados, vertice)){
+			agregar_final_lista(recorrido, vertice -> info);
+			agregar_final_lista(visitados, vertice -> info);
+			// Se agregan a la cola los vertices adyacentes
+			for(i = 0; i < grafo_general -> vertice; i++){
+				if(grafo_general -> matriz[vertice -> info][i] == 1){
+					encolar(C, i);
+				}
+			}
+		}
+	}
+	eliminar_repetidos_lista(recorrido);
+	return recorrido;
+}
+
+lista *recorrido_profundidad(grafo *grafo_general){
+	int i;
+	nodo *vertice;
+	pila *P;
+	lista *recorrido, *visitados;
+	// Se crea espacio en memoria para las listas
+	recorrido = crear_lista();
+	visitados = crear_lista();
+	// Se encola el primer vertice
+	push(P, grafo_general -> vertices -> inicio -> info);
+	// Mientras aún queden elementos en la pila
+	while(P -> top != NULL){
+		// Se obtiene el vertice
+		vertice = pop(P);
+		// Si el vertice no ha sido visitado se agregan a la lista de recorrido y visitados
+		if(!pertenece_lista(visitados, vertice)){
+			agregar_final_lista(recorrido, vertice -> info);
+			agregar_final_lista(visitados, vertice -> info);
+			// Se agregan a la pila los vertices adyacentes
+			for(i = 0; i < grafo_general -> vertice; i++){
+				if(grafo_general -> matriz[vertice -> info][i] == 1){
+					push(P, i);
+				}
+			}
+		}
+	}
+	eliminar_repetidos_lista(recorrido);
+	return recorrido;
 }
 
 int main(int argc, char *argv[]){
