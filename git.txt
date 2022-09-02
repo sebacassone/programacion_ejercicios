@@ -1,0 +1,8 @@
+Comandos útiles de GIT
+git push -u origin <RAMA_NUEVA>                                     Sube una rama nueva y la sube a GitHub como una rama nueva
+git checkout -b <branch-name>                                       Crear rama nueva a partir de la actual
+git branch -D <branch-name>                                         Eliminar rama
+git merge <RAMA_CON_CAMBIOS>                                        Realiza el merge con la rama deseada y la guarda en la rama actual
+git branch -a                                                       Ver lista de branches
+git checkout -b nombre_del_branch origin/nombre_del_branch          Creamos un nuevo branch localmente, basados en el branch remoto.
+git pull origin nombre_del_branch                                   Hacemos un pull, para asegurarnos que nuestro nuevo branch, esté actualizado.
